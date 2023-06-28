@@ -8,6 +8,10 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.typeCompatibleWith;
+
 public class SimpleAccountTest {
     SimpleAccount sut;
 
@@ -31,7 +35,8 @@ public class SimpleAccountTest {
         //act
         boolean result = sut.add(amount);
         //assert
-        Assertions.assertTrue(result);
+        //Assertions.assertTrue(result);
+        assert(result); // boolean в хамкрете не особо выразительный
     }
 
     public static Stream<Arguments> testSimpleAccountPay() {
@@ -49,6 +54,12 @@ public class SimpleAccountTest {
         //act
         boolean result = sut.pay(amount);
         //assert
-        Assertions.assertEquals(expected, result);
+        //Assertions.assertEquals(expected, result);
+        assertThat(expected, equalTo(result));
+    }
+    @Test
+    public void methodHamcrestNew1() {
+        assertThat(SimpleAccount.class, typeCompatibleWith(Account.class)); //Проверка, что класс SimpleAccount явлется
+        // подтипом класса Account
     }
 }
